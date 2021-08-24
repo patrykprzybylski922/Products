@@ -14,5 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $products = \App\Models\Product::paginate(10);
+    return view('welcome')->with('products', $products);
 });
+
+Route::get('/products', 'App\Http\Controllers\ProductsController@getProducts');
+Route::delete('/products/destroy/{id}', 'App\Http\Controllers\ProductsController@destroy');
